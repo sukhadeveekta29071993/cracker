@@ -2025,10 +2025,23 @@ async def shutdown_db_client():
     client.close()
 
 
-origins_env = os.environ.get('CORS_ORIGINS', '*').strip()
-if origins_env == '*':
-    app.add_middleware(CORSMiddleware, allow_credentials=True, allow_origin_regex=".*", allow_methods=["*"], allow_headers=["*"])
-else:
-    app.add_middleware(CORSMiddleware, allow_credentials=True, allow_origins=[o.strip() for o in origins_env.split(',')], allow_methods=["*"], allow_headers=["*"])
+origins_env = os.environ.get(
+    "CORS_ORIGINS",
+    "https://crackers-rose-seven.vercel.app"
+).strip()
+
+allowed_origins = [
+    origin.strip()
+    for origin in origins_env.split(",")
+    if origin.strip()
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(api_router)
