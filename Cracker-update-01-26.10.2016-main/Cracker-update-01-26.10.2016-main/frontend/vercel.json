@@ -6,4 +6,12 @@
       "destination": "https://crackers-ri8k.onrender.com/api/:path*"
     }
   ]
+}{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://crackers-ri8k.onrender.com/api/:path*"
+    }
+  ]
 }
